@@ -12,7 +12,6 @@ from django.utils.importlib import import_module
 import redis
 from wurfl2python import WurflPythonWriter, DeviceSerializer
 
-
 WURFL_ARCHIVE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.xml.gz")
 WURFL_XML_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.xml")
 WURFL_PY_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.py")
