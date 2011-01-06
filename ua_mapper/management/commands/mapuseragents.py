@@ -2,7 +2,7 @@ import hashlib
 import os
 import re
 import sys
-from optparse import OptionParser
+from optparse import OptionParser, make_option
 from urllib import urlopen
 
 from django.conf import settings
@@ -17,8 +17,15 @@ WURFL_XML_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl
 WURFL_PY_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.py")
 
 class Command(BaseCommand):
-    args = '<poll_id poll_id ...>'
     help = 'Maps Wurfl devices to Redis.'
+    option_list = BaseCommand.option_list + (
+        make_option('-f', '--force',
+            default=False,
+            action="store_true",
+            dest='force',
+            help='Delete poll instead of closing it'
+        ),
+    )
 
     def get_mapper(self):
         try:
@@ -117,6 +124,13 @@ class Command(BaseCommand):
         op = OptionParser()
         op.add_option("-l", "--logfile", dest="logfile", default=sys.stderr,
               help="where to write log messages")
+       
+        # Cleanup args for converter to play nicely.
+        if '-f' in sys.argv:
+            sys.argv.remove('-f')
+        if '--force' in sys.argv:
+            sys.argv.remove('--force')
+        
         options, args = op.parse_args()
         options = options.__dict__
         options.update({"outfile": WURFL_PY_PATH})
@@ -125,10 +139,10 @@ class Command(BaseCommand):
         wurfl = WurflPythonWriter(WURFL_XML_PATH, device_handler=DeviceSerializer, options=options)
         wurfl.process()
 
-    def handle(self, *args, **options):
+    def handle(self, force, *args, **options):
         mapper = self.get_mapper()
         server = self.get_server()
-        if self.fetch_latest_wurfl():
+        if self.fetch_latest_wurfl() or force:
             self.wurfl_to_python()
             from wurfl import devices
             print "Updating Redis..."
