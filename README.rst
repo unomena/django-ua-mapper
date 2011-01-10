@@ -32,7 +32,7 @@ map
 
 map(self, device)
 
-Device is a Wurfl device object. This method is called for each device in the Wurfl database whenever ``mapuseragents`` is run. map() must return a string, which will be stored in Redis as the value for the User-Agent key. 
+Device is a Wurfl device object. This method is called for each device in the Wurfl database whenever ``mapuseragents`` is run. ``map()`` must return a string, which will be stored in Redis as the value for the User-Agent key. 
 
 Example
 ~~~~~~~
