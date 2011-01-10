@@ -7,6 +7,7 @@ A simple Django management command mapping the complete set of Wurfl database Us
 Installation
 ------------
 #. Install or add django-ua-mapper to your Python path.
+#. Add ``ua_mapper`` to your ``INSTALLED_APPS`` setting in your project's ``settings.py`` file. 
 #. Add a ``UA_MAPPER_REDIS`` setting to your project's ``settings.py`` file. This setting specifies the host and port to the Redis instance you want to use for storage, i.e::
 
     UA_MAPPER_REDIS = '127.0.0.1:6379'
@@ -14,6 +15,7 @@ Installation
 #. Add a ``UA_MAPPER_CLASS`` setting to your project's ``settings.py`` file. This setting specifies the module to use for the actual mapping (see Mapper Class below), i.e.::
 
     UA_MAPPER_CLASS = 'project.uamappers.SimpleMapper'
+
 
 
 Usage
