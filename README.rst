@@ -1,7 +1,7 @@
 Django UA Mapper
 ================
 
-A simple Django management command mapping User-Agent header strings to some value determined by a user defined module. The resulting value is stored in Redis with the User-Agent header string as key.
+A simple Django management command mapping the complete set of Wurfl database User-Agent header strings to some value determined by a user defined module. The resulting value is stored in Redis with the User-Agent header string as key.
 
 
 Installation
@@ -22,6 +22,11 @@ Usage
 #. Run the command as follows::
 
     $ ./manage.py mapuseragents
+
+#. Redis will only be updated when no new Wurfl database could be found. To force an update run the command as follows::
+
+    $ ./manage.py mapuseragents --force
+
 
 Mapper Class
 ------------
