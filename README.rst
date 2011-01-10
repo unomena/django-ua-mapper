@@ -11,7 +11,7 @@ Installation
 
     UA_MAPPER_REDIS = '127.0.0.1:6379'
 
-#. Add a ``UA_MAPPER_CLASS`` setting to your project's ``settings.py`` file. This setting specifies the module to use for the actual mapping (see Usage below), i.e.::
+#. Add a ``UA_MAPPER_CLASS`` setting to your project's ``settings.py`` file. This setting specifies the module to use for the actual mapping (see Mapper Class below), i.e.::
 
     UA_MAPPER_CLASS = 'project.uamappers.SimpleMapper'
 
