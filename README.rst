@@ -20,6 +20,7 @@ Usage
 -----
 
 #. Run the command as follows::
+
     $ ./manage.py mapuseragents
 
 Mapper Class
