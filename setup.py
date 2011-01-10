@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-ua-mapper',
-    version='0.0.3',
-    description='Django app mapping User-Agent header strings to settings modules via Redis.',
+    version='0.0.4',
+    description='Django management command mapping User-Agent header strings to user defined values. Resulting User-Agent:value set is stored in Redis.',
     long_description = open('README.rst', 'r').read(),
     author='Praekelt Foundation',
     author_email='dev@praekelt.com',
