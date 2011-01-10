@@ -31,6 +31,7 @@ map
 ~~~
 
 map(self, device)
+
 Device is a Wurfl device object. This method is called for each device in the Wurfl database whenever ``mapuseragents`` is run.
 The mapper class is a simple class which defines with a 'map' method
 
