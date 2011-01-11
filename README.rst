@@ -16,7 +16,7 @@ Installation
 
     UA_MAPPER_CLASS = 'project.uamappers.SimpleMapper'
 
-
+#. Optionally add a ``UA_MAPPER_KEY_PREFIX`` setting to your project's ``settings.py`` file. This setting specifies a prefix string to use in combination with the User-Agent header string as Redis key.
 
 Usage
 -----
@@ -28,7 +28,6 @@ Usage
 #. Redis will only be updated when no new Wurfl database could be found. To force an update run the command as follows::
 
     $ ./manage.py mapuseragents --force
-
 
 Mapper Class
 ------------
