@@ -156,7 +156,7 @@ class Command(BaseCommand):
                     else:
                         key = ua
                     server.set(key, value)
-                    print 'Set Redis key "%s" to value "%s"' % (key, value)
+                    print 'Set Redis key "%s" to value "%s".' % (key, value)
                 except redis.exceptions.RedisError, e:
                     raise CommandError('Unable to set Redis key "%s" to value "%s": %s' % (ua, value, e))
             print "Done."
