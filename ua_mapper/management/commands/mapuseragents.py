@@ -12,6 +12,9 @@ from django.utils.importlib import import_module
 import redis
 from wurfl2python import WurflPythonWriter, DeviceSerializer
 
+import ua_mapper
+
+
 WURFL_ARCHIVE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.xml.gz")
 WURFL_XML_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.xml")
 WURFL_PY_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "wurfl.py")
@@ -141,7 +144,7 @@ class Command(BaseCommand):
 
     def handle(self, force, *args, **options):
         mapper = self.get_mapper()
-        server = self.get_server()
+        server = ua_mapper.get_server()
         if self.fetch_latest_wurfl() or force:
             self.wurfl_to_python()
             from wurfl import devices
