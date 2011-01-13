@@ -54,3 +54,4 @@ This example mapper returns a simple category string for each device, based on t
             else:
                 return 'high'
 
+
