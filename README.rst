@@ -1,7 +1,7 @@
 Django UA Mapper
 ================
 
-A simple Django management command mapping the complete set of Wurfl database User-Agent header strings to some value determined by a user defined module. The resulting value is stored in Redis with the User-Agent header string as key.
+A simple Django management command mapping the complete set of Wurfl database User-Agent header strings to some value determined by a user defined module. The resulting value is stored in Redis with the md5'd User-Agent header string as key.
 
 
 Installation
@@ -16,7 +16,9 @@ Installation
 
     UA_MAPPER_CLASS = 'project.uamappers.SimpleMapper'
 
-#. Optionally add a ``UA_MAPPER_KEY_PREFIX`` setting to your project's ``settings.py`` file. This setting specifies a prefix string to use in combination with the User-Agent header string as Redis key.
+#. Optionally add a ``UA_MAPPER_KEY_PREFIX`` setting to your project's ``settings.py`` file. This setting specifies a prefix string to use in combination with the User-Agent header string as Redis key, i.e.::
+
+    UA_MAPPER_KEY_PREFIX = 'projectkeyprefix'
 
 Usage
 -----
@@ -38,7 +40,7 @@ map
 
 map(self, device)
 
-``device`` is a Wurfl device object. This method is called for each device in the Wurfl database whenever ``mapuseragents`` is run. ``map()`` must return a string, which will be stored in Redis as the value for the User-Agent key. 
+``device`` is a Wurfl device object. This method is called for each device in the Wurfl database whenever ``mapuseragents`` is run. ``map()`` must return a string, which will be stored in Redis as the value for the md5'd User-Agent key. 
 
 Example
 ~~~~~~~
