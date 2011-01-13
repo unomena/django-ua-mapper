@@ -150,13 +150,11 @@ class Command(BaseCommand):
                 device = devices.select_ua(ua)
                 value = mapper.map(device)
                 try:
-                    prefix = getattr(settings, 'UA_MAPPER_KEY_PREFIX', None)
-                    if prefix:
-                        key = "%s%s" % (prefix, ua)
-                    else:
-                        key = ua
+                    prefix = getattr(settings, 'UA_MAPPER_KEY_PREFIX', '')
+                    ua_md5 = hashlib.md5(ua).hexdigest()
+                    key = "%s%s" % (prefix, ua_md5)
                     server.set(key, value)
-                    print 'Set Redis key "%s" to value "%s".' % (key, value)
+                    print 'Set Redis key "%s" to value "%s" for user agent: %s.' % (key, value, ua)
                 except redis.exceptions.RedisError, e:
                     raise CommandError('Unable to set Redis key "%s" to value "%s": %s' % (ua, value, e))
             print "Done."
