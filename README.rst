@@ -40,8 +40,8 @@ Update Wurfl Database
 
     $ ./manage.py updatewurfl --force
 
-Perform Wurfl->Redis Mapping
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perform Wurfl to Redis Mapping
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. To map the complete set of Wurfl devices to Redis run the ``mapuseragents`` command as follows::
 
