@@ -24,7 +24,7 @@ Installation
     
     (r'^mapper/', include('ua_mapper.urls')),
 
-Now if you hit ``http://<host>/mapper/map-request/`` a mapping will be performed and results stored in Redis using your requesting User-Agent header string.
+Now if you hit ``http://<host>/mapper/map-request/`` a mapping will be performed and results stored in Redis for the requesting User-Agent header string.
 
 Usage
 -----
@@ -36,11 +36,11 @@ Update Wurfl Database
 
     $ ./manage.py updatewurfl
 
-#. The Wurfl database will only be updated when a new downloadable Wurfl database is be found. To force an update run the command as follows::
+#. The Wurfl database will only be updated when a new downloadable Wurfl database is found. To force an update run the command as follows::
 
     $ ./manage.py updatewurfl --force
 
-Perform Wurfl-Redis Mapping
+Perform Wurfl->Redis Mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. To map the complete set of Wurfl devices to Redis run the ``mapuseragents`` command as follows::
