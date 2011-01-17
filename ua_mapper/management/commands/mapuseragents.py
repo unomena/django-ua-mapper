@@ -27,47 +27,6 @@ class Command(BaseCommand):
         ),
     )
 
-    def get_mapper(self):
-        try:
-            mapper_path = settings.UA_MAPPER_CLASS
-        except:
-            raise CommandError('No UA_MAPPER_CLASS setting found.')
-        try:
-            dot = mapper_path.rindex('.')
-        except ValueError:
-            raise CommandError('%s isn\'t a UA Mapper module.' % mapper_path)
-        module, classname = mapper_path[:dot], mapper_path[dot+1:]    
-        try:
-                mod = import_module(module)
-        except ImportError, e:
-            raise CommandError('Could not import UA Mapper %s: "%s".' % (module, e))    
-        try:
-            mapper_class = getattr(mod, classname)
-        except AttributeError:
-            raise CommandError('UA mapper module "%s" does not define a "%s" class.' % (module, classname))
-   
-        mapper_instance = mapper_class()
-        if not hasattr(mapper_instance, 'map'):
-            raise CommandError('UA mapper class "%s" does not define a map method. Implement the method to receive a Wurfl device object and return an appropriate value to be stored in Redis.' % classname)
-        
-        if not hasattr(mapper_instance, 'map'):
-            raise CommandError('UA mapper class "%s" does not define a map method.' % classname)
-        
-        return mapper_class()
-    
-    def get_server(self):
-        try:
-            host_port = settings.UA_MAPPER_REDIS
-        except:
-            raise CommandError('No UA_MAPPER_REDIS setting found.')
-        try:
-            colon = host_port.rindex(':')
-        except ValueError:
-            raise CommandError('%s isn\'t a correct Redis host:port string.' % host_port)
-    
-        host, port = host_port.split(":")
-        return redis.Redis(host=host, port=int(port))
-
     def get_md5(self, filename):
         f = open(filename, "r")
         m = hashlib.md5()
@@ -140,23 +99,23 @@ class Command(BaseCommand):
         wurfl.process()
 
     def handle(self, force, *args, **options):
-        mapper = self.get_mapper()
-        server = self.get_server()
+        #mapper = self.get_mapper()
+        #server = self.get_server()
         if self.fetch_latest_wurfl() or force:
             self.wurfl_to_python()
-            from wurfl import devices
-            print "Updating Redis..."
-            for i, ua in enumerate(devices.uas):
-                device = devices.select_ua(ua)
-                value = mapper.map(device)
-                try:
-                    prefix = getattr(settings, 'UA_MAPPER_KEY_PREFIX', '')
-                    ua_md5 = hashlib.md5(ua).hexdigest()
-                    key = "%s%s" % (prefix, ua_md5)
-                    server.set(key, value)
-                    print 'Set Redis key "%s" to value "%s" for user agent: %s.' % (key, value, ua)
-                except redis.exceptions.RedisError, e:
-                    raise CommandError('Unable to set Redis key "%s" to value "%s": %s' % (ua, value, e))
-            print "Done."
-        else:
-            print "Done. Redis unchanged."
+        #    from wurfl import devices
+        #    print "Updating Redis..."
+        #    for i, ua in enumerate(devices.uas):
+        #        device = devices.select_ua(ua)
+        #        value = mapper.map(device)
+        #        try:
+        #            prefix = getattr(settings, 'UA_MAPPER_KEY_PREFIX', '')
+        #            ua_md5 = hashlib.md5(ua).hexdigest()
+        #            key = "%s%s" % (prefix, ua_md5)
+        #            server.set(key, value)
+        #            print 'Set Redis key "%s" to value "%s" for user agent: %s.' % (key, value, ua)
+        #        except redis.exceptions.RedisError, e:
+        #            raise CommandError('Unable to set Redis key "%s" to value "%s": %s' % (ua, value, e))
+        #    print "Done."
+        #else:
+        #    print "Done. Redis unchanged."
