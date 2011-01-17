@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-ua-mapper',
-    version='0.0.7',
+    version='0.0.8',
     description='Django management command mapping User-Agent header strings to user defined values. Resulting User-Agent:value set is stored in Redis.',
     long_description = open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
     author='Praekelt Foundation',
