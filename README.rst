@@ -24,7 +24,7 @@ Installation
     
     (r'^mapper/', include('ua_mapper.urls')),
 
-Now if you hit ``http://<host>/mapper/map-request/`` a mapping will be performed and results stored in Redis for the requesting User-Agent header string.
+Now if you hit ``http://<host>/mapper/map-request/`` a mapping will be performed and its result stored in Redis for the requesting User-Agent header string.
 
 Usage
 -----
