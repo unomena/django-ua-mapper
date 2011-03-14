@@ -52,7 +52,7 @@ class UAMapper(object):
     def map(self, user_agent, device):
         mapper = self.get_mapper()
         redis_server = self.get_redis_server()
-        value = mapper.map(device)
+        value = mapper.map(device, user_agent)
         try:
             prefix = getattr(settings, 'UA_MAPPER_KEY_PREFIX', '')
             user_agent_md5 = hashlib.md5(user_agent).hexdigest()
