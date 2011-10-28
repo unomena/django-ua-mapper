@@ -52,24 +52,14 @@ class Command(BaseCommand):
         download_page = urlopen(download_page_url).read()
         result = re.search('"download_url": "(http://sourceforge.net/projects/wurfl/files/WURFL/.*\..*\..*/.*.xml.gz/download)"', download_page)
         download_url = result.group(1)
-        result = re.search('"md5": "(.*)", "type"', download_page)
-        new_md5 = result.group(1)
 
-        # Only update if md5's don't match. 
-        try:
-            current_md5 = self.get_md5(WURFL_ARCHIVE_PATH)
-            update = new_md5 != current_md5
-        except IOError:
-            update = True
-        
-        if update:
-            print "Wurfl update found, downloading..."
-            data = urlopen(download_url).read()
-            self.write_archive(WURFL_ARCHIVE_PATH, data)
-            os.system("gunzip -f %s" % WURFL_ARCHIVE_PATH) 
-            self.write_archive(WURFL_ARCHIVE_PATH, data)
-            return True
-        
+        print "Wurfl update found, downloading..."
+        data = urlopen(download_url).read()
+        self.write_archive(WURFL_ARCHIVE_PATH, data)
+        os.system("gunzip -f %s" % WURFL_ARCHIVE_PATH) 
+        self.write_archive(WURFL_ARCHIVE_PATH, data)
+        return True
+    
         print "No Wurfl update found."
         return False
 
