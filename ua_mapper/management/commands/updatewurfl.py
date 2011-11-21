@@ -43,15 +43,20 @@ class Command(BaseCommand):
 
         TODO: Download URL resolution is completely retarded but I couldn't find a consistent repo from which to download wurfl.xml.
         """
-        print "Checking for Wurfl update..."
+        
+        # This is too flakey - hard-coding the latest available wurfl db until this is fixed
+
+        #print "Checking for Wurfl update..."
         # Get latest version download page url.
-        result = re.search('"(/projects/wurfl/files/WURFL/.*\..*\..*/)"', urlopen("http://sourceforge.net/projects/wurfl/files/WURFL/").read())
-        download_page_url = "http://sourceforge.net%s" % result.group(1)
+        #result = re.search('"(/projects/wurfl/files/WURFL/.*\..*\..*/)"', urlopen("http://sourceforge.net/projects/wurfl/files/WURFL/").read())
+        #download_page_url = "http://sourceforge.net%s" % result.group(1)
     
         # Get database download url.
-        download_page = urlopen(download_page_url).read()
-        result = re.search('"download_url": "(http://sourceforge.net/projects/wurfl/files/WURFL/.*\..*\..*/.*.xml.gz/download)"', download_page)
-        download_url = result.group(1)
+        #download_page = urlopen(download_page_url).read()
+        #result = re.search('"download_url": "(http://sourceforge.net/projects/wurfl/files/WURFL/.*\..*\..*/.*.xml.gz/download)"', download_page)
+        #download_url = result.group(1)
+
+        download_url = 'http://sourceforge.net/projects/wurfl/files/WURFL/2.1.1/wurfl-2.1.1.xml.gz/download'
 
         print "Wurfl update found, downloading..."
         data = urlopen(download_url).read()
